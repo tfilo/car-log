@@ -1,0 +1,43 @@
+export const ServerFunctionOperation = {
+    GET_TRANSFER_STATUS: 'getTransferStatus',
+    START_EXPORT: 'startExport',
+    IMPORT_ARCHIVE: 'importArchive',
+    GET_EXPORT_DOWNLOAD: 'getExportDownload',
+    GET_STATISTICS: 'getStatistics',
+    LIST_EXPENSES: 'listExpenses',
+    GET_EXPENSE: 'getExpense',
+    CREATE_EXPENSE: 'createExpense',
+    UPDATE_EXPENSE: 'updateExpense',
+    DELETE_EXPENSE: 'deleteExpense',
+    LIST_EXPENSE_CATEGORIES: 'listExpenseCategories',
+    CREATE_EXPENSE_CATEGORY: 'createExpenseCategory',
+    UPDATE_EXPENSE_CATEGORY: 'updateExpenseCategory',
+    DELETE_EXPENSE_CATEGORY: 'deleteExpenseCategory',
+
+    LIST_FUEL_RECORDS: 'listFuelRecords',
+    GET_FUEL_RECORD: 'getFuelRecord',
+    CREATE_FUEL_RECORD: 'createFuelRecord',
+    UPDATE_FUEL_RECORD: 'updateFuelRecord',
+    DELETE_FUEL_RECORD: 'deleteFuelRecord',
+
+    LIST_VEHICLES: 'listVehicles',
+    GET_VEHICLE: 'getVehicle',
+    CREATE_VEHICLE: 'createVehicle',
+    UPDATE_VEHICLE: 'updateVehicle',
+    DELETE_VEHICLE: 'deleteVehicle',
+    REGISTER: 'register',
+    GET_REGISTRATION_AVAILABILITY: 'getRegistrationAvailability',
+    LOGIN: 'login',
+    GET_CURRENT_USER: 'getCurrentUser',
+    LOGOUT: 'logout',
+    LIST_USERS: 'listUsers',
+    MANAGE_USER: 'manageUser',
+    DELETE_MY_ACCOUNT: 'deleteMyAccount',
+    UPDATE_MY_PROFILE: 'updateMyProfile',
+    CONFIRM_EMAIL: 'confirmEmail',
+    REQUEST_EMAIL_VERIFICATION: 'requestEmailVerification',
+    REQUEST_PASSWORD_RESET: 'requestPasswordReset',
+    RESET_PASSWORD: 'resetPassword'
+} as const;
+
+export type ServerFunctionOperation = (typeof ServerFunctionOperation)[keyof typeof ServerFunctionOperation];

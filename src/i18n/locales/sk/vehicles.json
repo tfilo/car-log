@@ -1,0 +1,66 @@
+{
+    "heading": "Vozidlá",
+    "createHeading": "Nové vozidlo",
+    "editHeading": "Upraviť vozidlo",
+    "details": "Údaje vozidla",
+    "add": "Pridať vozidlo",
+    "save": "Uložiť vozidlo",
+    "retry": "Skúsiť znova",
+    "working": "Spracúva sa…",
+    "empty": "Zatiaľ nemáte žiadne vozidlá. Pridajte svoje prvé vozidlo.",
+    "previous": "Predchádzajúca strana",
+    "next": "Nasledujúca strana",
+    "currentPage": "Aktuálna strana",
+    "fields": {
+        "manufacturer": "Výrobca",
+        "model": "Model",
+        "licensePlate": "Evidenčné číslo",
+        "vin": "VIN",
+        "color": "Farba",
+        "registrationDate": "Dátum prvej registrácie",
+        "fuelTypes": "Druhy paliva",
+        "picture": "Fotografia vozidla"
+    },
+    "fuels": {
+        "PETROL": "Benzín",
+        "DIESEL": "Nafta",
+        "LPG": "LPG",
+        "CNG": "CNG",
+        "ELECTRIC": "Elektrina"
+    },
+    "picture": {
+        "heading": "Fotografia",
+        "help": "Jedna fotografia vo formáte JPEG, PNG, WebP alebo HEIC, najviac 10 MiB.",
+        "alt": "Fotografia vozidla {{name}}",
+        "remove": "Odstrániť fotografiu",
+        "partialSave": "Údaje vozidla boli uložené, ale fotografiu sa nepodarilo uložiť. Môžete to skúsiť znova."
+    },
+    "delete": {
+        "heading": "Vymazanie vozidla",
+        "button": "Vymazať vozidlo",
+        "warning": "Vozidlo, jeho fotografia a všetky súvisiace záznamy o palive, nabíjaní a servise budú trvalo vymazané. Túto operáciu nemožno vrátiť späť."
+    },
+    "validation": {
+        "manufacturer": "Zadajte výrobcu vozidla.",
+        "model": "Zadajte model vozidla.",
+        "text": "Zadajte platný text.",
+        "length": "Zadaný text je príliš dlhý.",
+        "vin": "VIN môže obsahovať iba písmená a číslice.",
+        "date": "Zadajte platný dátum.",
+        "fuelTypes": "Vyberte aspoň jeden druh paliva bez opakovaných hodnôt.",
+        "shape": "Skontrolujte údaje vozidla.",
+        "id": "Vyberte platné vozidlo.",
+        "confirmation": "Potvrďte trvalé vymazanie vozidla.",
+        "picture": "Vyberte platný súbor.",
+        "pictureSize": "Fotografia môže mať najviac 10 MiB.",
+        "pagination": "Vyberte platnú stranu a počet vozidiel."
+    },
+    "errors": {
+        "invalid": "Skontrolujte údaje vozidla.",
+        "notFound": "Vozidlo alebo fotografia sa nenašli.",
+        "unavailable": "Operáciu s vozidlom sa nepodarilo dokončiť. Skúste to znova.",
+        "pictureInvalid": "Fotografiu sa nepodarilo spracovať. Vyberte platný JPEG, PNG, WebP alebo HEIC súbor.",
+        "pictureTooLarge": "Fotografia môže mať najviac 10 MiB.",
+        "fuelInUse": "Druh paliva nemožno odstrániť, kým má vozidlo súvisiace záznamy o tankovaní alebo nabíjaní."
+    }
+}

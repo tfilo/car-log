@@ -1,0 +1,31 @@
+export const ResultKind = {
+    STATISTICS: 'statistics',
+    EXPENSE: 'expense',
+    EXPENSES: 'expenses',
+    EXPENSE_CATEGORIES: 'expenseCategories',
+    FUEL_RECORD: 'fuelRecord',
+    FUEL_RECORDS: 'fuelRecords',
+    VEHICLE: 'vehicle',
+    VEHICLES: 'vehicles',
+    ERROR: 'error',
+    INVALID: 'invalid',
+    UNAVAILABLE: 'unavailable',
+    DUPLICATE: 'duplicate',
+    INVALID_CREDENTIALS: 'invalidCredentials',
+    INVALID_TOKEN: 'invalidToken',
+    CREATED: 'created',
+    AUTHENTICATED: 'authenticated',
+    ANONYMOUS: 'anonymous',
+    LOGGED_OUT: 'loggedOut',
+    UPDATED: 'updated',
+    VERIFIED: 'verified',
+    ALREADY_VERIFIED: 'alreadyVerified',
+    SENT: 'sent',
+    REQUESTED: 'requested',
+    RESET: 'reset',
+    USERS: 'users',
+    DELETED: 'deleted',
+    ISSUED: 'issued'
+} as const;
+
+export type ResultKind = (typeof ResultKind)[keyof typeof ResultKind];

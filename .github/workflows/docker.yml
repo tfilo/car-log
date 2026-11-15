@@ -1,0 +1,79 @@
+name: Docker Image CI
+
+on:
+    push:
+        tags: ['*']
+
+permissions:
+    contents: read
+
+jobs:
+    checks:
+        permissions:
+            actions: read
+            contents: read
+            packages: read
+        uses: ./.github/workflows/build.yml
+
+    docker:
+        needs: checks
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            packages: read
+        env:
+            IMAGE_NAME: ${{ secrets.DOCKER_USER }}/car-log
+            IMAGE_TAG: ${{ github.ref_name }}
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v7
+
+            - name: Log in to Docker Hub
+              env:
+                  DOCKER_USER: ${{ secrets.DOCKER_USER }}
+                  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+              run: printf '%s' "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USER" --password-stdin
+
+            - name: Build image
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  docker build . --file Dockerfile --platform linux/amd64 \
+                    --secret id=NODE_AUTH_TOKEN,env=NODE_AUTH_TOKEN \
+                    --tag "$IMAGE_NAME:$IMAGE_TAG" --tag "$IMAGE_NAME:latest"
+
+            - name: Build migration image
+              env:
+                  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              run: |
+                  docker build . --file Dockerfile --target migrations --platform linux/amd64 \
+                    --secret id=NODE_AUTH_TOKEN,env=NODE_AUTH_TOKEN \
+                    --tag "$IMAGE_NAME:$IMAGE_TAG-migrations" --tag "$IMAGE_NAME:latest-migrations"
+
+            - name: Verify migrations on an empty database and on repeat
+              run: |
+                  docker run --detach --name car-log-migration-db \
+                    --env POSTGRES_DB=car_log_migration_test \
+                    --env POSTGRES_PASSWORD=synthetic-migration-test postgres:18
+                  trap 'docker rm --force --volumes car-log-migration-db' EXIT
+                  for attempt in {1..30}; do
+                    if docker exec car-log-migration-db pg_isready -U postgres -d car_log_migration_test; then break; fi
+                    sleep 1
+                  done
+                  for attempt in 1 2; do
+                    docker run --rm --network container:car-log-migration-db \
+                      --env DATABASE_URL=postgresql://postgres:synthetic-migration-test@127.0.0.1:5432/car_log_migration_test \
+                      "$IMAGE_NAME:$IMAGE_TAG-migrations"
+                  done
+                  docker exec car-log-migration-db psql -U postgres -d car_log_migration_test \
+                    -v ON_ERROR_STOP=1 -c 'SELECT count(*) FROM "PictureFile";'
+
+            - name: Verify non-root runtime and native modules
+              run: |
+                  docker run --rm --read-only --cap-drop=ALL \
+                    --security-opt=no-new-privileges:true \
+                    --mount "type=bind,src=$GITHUB_WORKSPACE/scripts/docker/smoke.mjs,dst=/app/server/container-smoke.mjs,readonly" \
+                    "$IMAGE_NAME:$IMAGE_TAG" node server/container-smoke.mjs
+
+            - name: Push image to Docker Hub
+              run: docker image push --all-tags "$IMAGE_NAME"

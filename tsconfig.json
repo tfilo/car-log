@@ -1,0 +1,21 @@
+{
+    "compilerOptions": {
+        "jsx": "react-jsx",
+        "moduleResolution": "Bundler",
+        "rewriteRelativeImportExtensions": true,
+        "module": "ESNext",
+        "resolveJsonModule": true,
+        "target": "ES2022",
+        "skipLibCheck": true,
+        "strictNullChecks": true,
+        "verbatimModuleSyntax": false,
+
+        /* Linting */
+        "strict": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "erasableSyntaxOnly": true,
+        "noFallthroughCasesInSwitch": true,
+        "noUncheckedSideEffectImports": true
+    }
+}
